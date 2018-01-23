@@ -1,0 +1,26 @@
+# Copyright 2014-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"). You may
+# not use this file except in compliance with the License. A copy of the
+# License is located at
+#
+#	http://aws.amazon.com/apache2.0/
+#
+# or in the "license" file accompanying this file. This file is distributed
+# on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+# express or implied. See the License for the specific language governing
+# permissions and limitations under the License.
+
+# Using a fully-blown base image for dhclient
+FROM alpine:3.7
+
+RUN apk add --update \
+        ca-certificates \
+        dhclient
+
+COPY out/amazon-ecs-agent /usr/local/bin/agent
+COPY out/amazon-ecs-pause.tar /images/amazon-ecs-pause.tar
+COPY out/cni-plugins /amazon-ecs-cni-plugins
+
+EXPOSE 51678 51679
+ENTRYPOINT ["/usr/local/bin/agent"]
