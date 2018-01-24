@@ -72,6 +72,10 @@ release: certs docker-release
 	@docker build -f scripts/dockerfiles/Dockerfile.release -t "amazon/amazon-ecs-agent:latest" .
 	@echo "Built Docker image \"amazon/amazon-ecs-agent:latest\""
 
+release-alpine: docker-release
+	@docker build -f scripts/dockerfiles/Dockerfile.alpine -t "amazon/amazon-ecs-agent:alpine" .
+	@echo "Built Docker image \"amazon/amazon-ecs-agent:alpine\""
+
 gogenerate:
 	./scripts/gogenerate
 
